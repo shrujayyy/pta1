@@ -1,0 +1,26 @@
+.ml-2 {
+  margin-left: 24px;
+}
+
+.left-390 {
+  position: relative;
+  float: right;
+}
+.grid {
+  display: grid;
+}
+
+#myTable_filter {
+  margin-bottom: 10px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.top {
+  position: relative;
+  top: -42px;
+  left: 10px;
+}
