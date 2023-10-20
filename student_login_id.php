@@ -1,5 +1,11 @@
 <?php
 require('partials/_top.php');
+
+if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
+    header("location: login.php");
+    exit;
+}
+
 ?>
 
 <div class="container table-responsive w-50 mt-3 mb-3">

@@ -1,6 +1,11 @@
 <?php
 require('partials/_top.php');
 
+if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
+    header("location: login.php");
+    exit;
+}
+
 $odd = false;
 $even = false;
 $tableInserted = false;
@@ -153,7 +158,7 @@ if ($tableError) {
                         $alreadyExists = true;
                     }
                 }
-                if($alreadyExists){
+                if ($alreadyExists) {
                     echo '<a class="btn btn-primary disabled" aria-disabled="true">Create Attendance Table</a> ';
                 } else {
                     echo '<a class="btn btn-primary" href="creating_attendance_table.php?type=create_table&sub=' . $rowSub['subjectName'] . '&sem=' . $rowSub['sem'] . '">Create Attendance Table</a> ';

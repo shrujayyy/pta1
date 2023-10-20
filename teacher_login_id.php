@@ -1,5 +1,11 @@
 <?php
 require('partials/_top.php');
+
+if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
+    header("location: login.php");
+    exit;
+}
+
 ?>
 
 <div class="container table-responsive w-50 mt-3 mb-3">
@@ -20,15 +26,15 @@ require('partials/_top.php');
             while ($row = mysqli_fetch_assoc($res)) {
                 $i = $i + 1;
                 echo '<tr>
-                <td scope="row">'. $i .'</td>
-                <td scope="row">'. $row['teacherID'] .'</td>
+                <td scope="row">' . $i . '</td>
+                <td scope="row">' . $row['teacherID'] . '</td>
                 <td scope="row">
-                    <button type="button" class="delete_teacherID btn btn-danger" id="'. $row['teacherID'] .'">Delete</button>
+                    <button type="button" class="delete_teacherID btn btn-danger" id="' . $row['teacherID'] . '">Delete</button>
                 </td>
             </tr>';
             }
             ?>
-            
+
         </tbody>
     </table>
 </div>

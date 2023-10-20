@@ -2,6 +2,11 @@
 require('partials/connection.inc.php');
 require('partials/function.inc.php');
 
+if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
+    header("location: login.php");
+    exit;
+}
+
 $sem = get_safe_value_pta($conn, $_POST['sem']);
 // $sectionList = get_safe_value_pta($con, $_POST['sub_cat_id']);
 $res = mysqli_query($conn, "Select * from `bcasection` WHERE `sem`='$sem' and `status`='1'");

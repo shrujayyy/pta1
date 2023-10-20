@@ -2,6 +2,11 @@
 require('partials/connection.inc.php');
 require('partials/function.inc.php');
 
+if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
+    header("location: login.php");
+    exit;
+}
+
 if (isset($_GET['type']) && $_GET['type'] != '') {
     $type = get_safe_value_pta($conn, $_GET['type']);
     if ($type == 'create_table') {
@@ -35,8 +40,8 @@ if (isset($_GET['type']) && $_GET['type'] != '') {
                     <script>
                         window.location.href = "creating_subject.php?type=insertError";
                     </script>
-<?php }
-            }?>
+            <?php }
+            } ?>
             <script>
                 window.location.href = "creating_subject.php?type=insertError";
             </script>

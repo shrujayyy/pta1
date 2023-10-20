@@ -1,6 +1,11 @@
 <?php
 require('partials/_top.php');
 
+if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
+    header("location: login.php");
+    exit;
+}
+
 $update = false;
 $error = false;
 if (isset($_POST['updateRegisterForm'])) {
@@ -47,8 +52,8 @@ if ($update) {
     <strong>Update was sucesssfull!</strong>.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>';
-} 
-if($error){
+}
+if ($error) {
     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong>Update was Unsucesssfull!</strong>.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

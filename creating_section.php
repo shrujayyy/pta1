@@ -1,6 +1,11 @@
 <?php
 require('partials/_top.php');
 
+if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
+    header("location: login.php");
+    exit;
+}
+
 $odd = false;
 $even = false;
 if (isset($_GET['type']) && $_GET['type'] != '') {

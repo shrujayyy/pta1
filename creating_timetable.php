@@ -5,6 +5,7 @@ if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
     header("location: login.php");
     exit;
 }
+
 $tableName = '';
 $insertSuccess = false;
 $sem = get_safe_value_pta($conn, $_GET["sem"]);

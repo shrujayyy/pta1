@@ -1,6 +1,11 @@
 <?php
 require('partials/_top.php');
 
+if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
+    header("location: login.php");
+    exit;
+}
+
 $update = false;
 $error = false;
 if (isset($_POST['updateTeacherRegisterForm'])) {
