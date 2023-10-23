@@ -11,11 +11,11 @@ if (!isset($_SESSION['teacherLoggedIn']) || $_SESSION['teacherLoggedIn'] != true
 <div class="container w-50 ml-2">
   <h2>Teacher Section</h2>
   <ul>
-    <li>Profile.<a href="register_teacher_details.php" class="href">Click here.</a></li>
-    <li>View Teacher details.<a href="view_teacher_details.php" class="href">Click here.</a></li>
-    <li>Creating Subject.<a href="creating_subject.php" class="href">Click here.</a></li>
-    <li>Assign Subject to Teacher.<a href="assign_subject_teacher.php" class="href">Click here.</a></li>
-    <li>Teacher Login ID .<a href="teacher_login_id.php" class="href">Click here.</a></li>
+    <li>Profile.<a href="teacher_profile.php" class="href">Click here.</a></li>
+    <li>Enter Marks.<a href="view_exam.php" class="href">Click here.</a></li>
+    <li>Enter Attendance.<a href="view_teacher_details.php" class="href">Click here.</a></li>
+    <li>View student Details.<a href="view_student_class.php" class="href">Click here.</a></li>
+    <li>Assigned Subject.<a href="view_assigned_subject.php" class="href">Click here.</a></li>
   </ul>
 </div>
 

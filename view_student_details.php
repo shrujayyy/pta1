@@ -2,8 +2,20 @@
 require('partials/_top.php');
 
 if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
-    header("location: login.php");
-    exit;
+    if (!isset($_SESSION['teacherLoggedIn']) || $_SESSION['teacherLoggedIn'] != true) { ?>
+        <script>
+            window.location.href = "login.php";
+        </script>
+    <?php
+    } 
+}
+
+if (isset($_GET['type']) && $_GET['type'] != '') {
+    $type = get_safe_value_pta($conn, $_GET['type']);
+    if ($type == 'view_details') {
+        $sem = get_safe_value_pta($conn, $_GET['sem']);
+        $section = get_safe_value_pta($conn, $_GET['sec']);
+    }
 }
 
 $update = false;
@@ -179,7 +191,7 @@ if ($error) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "SELECT * FROM `studentdetails`";
+                                        $sql = "SELECT * FROM `studentdetails` WHERE `sem`='$sem' AND `section`='$section'";
                                         $res = mysqli_query($conn, $sql);
                                         while ($row = mysqli_fetch_assoc($res)) {
                                             echo '<tr>

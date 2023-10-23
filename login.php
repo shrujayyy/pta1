@@ -12,7 +12,6 @@ if (isset($_POST['adminID']) && isset($_POST['adminPassword'])) {
     $result = mysqli_query($conn, $sql);
     $num = mysqli_num_rows($result);
     if ($num == 1) {
-        session_start();
         $_SESSION['login'] = true;
         $_SESSION['adminLoggedIn'] = true;
         $_SESSION['adminID'] = $adminID;
@@ -28,7 +27,6 @@ if (isset($_POST['adminID']) && isset($_POST['adminPassword'])) {
     $result = mysqli_query($conn, $sql);
     if ($row = mysqli_fetch_assoc($result)) {
         if (password_verify($teacherPassword, $row['teacherPassword'])) {
-            session_start();
             $_SESSION['login'] = true;
             $_SESSION['teacherLoggedIn'] = true;
             $_SESSION['teacherID'] = $teacherID;
@@ -45,7 +43,6 @@ if (isset($_POST['adminID']) && isset($_POST['adminPassword'])) {
     $result = mysqli_query($conn, $sql);
     if ($row = mysqli_fetch_assoc($result)) {
         if (password_verify($studentPassword, $row['studentPassword'])) {
-            session_start();
             $_SESSION['login'] = true;
             $_SESSION['studentLoggedIn'] = true;
             $_SESSION['studentID'] = $studentID;

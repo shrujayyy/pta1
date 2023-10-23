@@ -178,3 +178,34 @@ $(document).ready(function() {
 
 });
 
+$(document).ready(function () {
+  $(".update_first").click(function (e) {
+    e.preventDefault();
+    
+    tr = $(this).closest("tr");
+    var studentID = tr.find("td:eq(1)").text();
+    var subject = $("#h3").find("small").text();
+    var updatedMarks = tr.find("td:eq(5)").text();
+    $("#studentID").val(studentID);
+    $("#subjectName").val(subject);
+    $("#updatedMarks").val(updatedMarks);
+    
+    $("#updateFirstMarksModal").modal("toggle");
+  });
+});
+
+$(document).ready(function () {
+  $(".update_second").click(function (e) {
+    e.preventDefault();
+    
+    tr = $(this).closest("tr");
+    var studentID = tr.find("td:eq(1)").text();
+    var subject = $("#h3").find("small").text();
+    var updatedMarks = tr.find("td:eq(5)").text();
+    $("#studentID").val(studentID);
+    $("#subjectName").val(subject);
+    $("#updatedMarks").val(updatedMarks);
+    
+    $("#updateSecondMarksModal").modal("toggle");
+  });
+});

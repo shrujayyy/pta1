@@ -31,33 +31,30 @@ session_start();
                     <li class="nav-item">
                         <?php if (isset($_SESSION['login'])) {
                             if (isset($_SESSION['adminLoggedIn'])) { ?>
-                            <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link dark" aria-current="page" href="admin.php">Admin</a>
                     </li>
-                                <form action="logout.php" method="post">
-                                    <input type="hidden" name="logout" value="adminLogout" value="adminLogout">
-                                    <input type="submit" class="nav-link dark" aria-current="page" value="Logout">
-                                </form>
-                            <?php } elseif (isset($_SESSION['teacherLoggedIn'])) { ?>
-                                <form action="logout.php" method="post">
-                                    <input type="hidden" name="logout" value="teacherLogout" value="teacherLogout">
-                                    <input type="submit" class="nav-link dark" aria-current="page" value="Logout">
-                                </form>
-                            <?php } elseif (isset($_SESSION['studentLoggedIn'])) { ?>
-                                <form action="logout.php" method="post">
-                                    <input type="hidden" name="logout" value="studentLogout" value="studentLogout">
-                                    <input type="submit" class="nav-link dark" aria-current="page" value="Logout">
-                                </form>
-                            <?php }
-                        } else { ?>
-                            <a class="nav-link dark" aria-current="page" href="login.php">Login</a>
-                        <?php } ?>
-
-
-                        <?php  ?>
-                        <?php  ?>
-                        <?php  ?>
+                    <form action="logout.php" method="post">
+                        <input type="hidden" name="logout" value="adminLogout" value="adminLogout">
+                        <input type="submit" class="nav-link dark" aria-current="page" value="Logout">
+                    </form>
+                <?php } elseif (isset($_SESSION['teacherLoggedIn'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link dark" aria-current="page" href="teacher.php">Teacher</a>
                     </li>
+                    <form action="logout.php" method="post">
+                        <input type="hidden" name="logout" value="teacherLogout" value="teacherLogout">
+                        <input type="submit" class="nav-link dark" aria-current="page" value="Logout">
+                    </form>
+                <?php } elseif (isset($_SESSION['studentLoggedIn'])) { ?>
+                    <form action="logout.php" method="post">
+                        <input type="hidden" name="logout" value="studentLogout" value="studentLogout">
+                        <input type="submit" class="nav-link dark" aria-current="page" value="Logout">
+                    </form>
+                <?php }
+                        } else { ?>
+                <a class="nav-link dark" aria-current="page" href="login.php">Login</a>
+            <?php } ?>
                 </ul>
             </div>
         </div>
