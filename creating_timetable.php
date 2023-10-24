@@ -47,8 +47,6 @@ if (isset($_POST['createTimeTable'])) {
 
 //CREATE TABLE `ptadb`.`firstbcaa` (`week` VARCHAR(50) NOT NULL , `9.00-9.55` VARCHAR(100) NOT NULL , `10.00-10.55` VARCHAR(100) NOT NULL , `11.00-11.55` VARCHAR(100) NOT NULL , `12.00-12.55` VARCHAR(100) NOT NULL , `14.00-14.55` VARCHAR(100) NOT NULL , `15.00-15.55` VARCHAR(100) NOT NULL , `16.00-16.55` VARCHAR(100) NOT NULL );
 
-
-
 if (isset($_GET['type']) && $_GET['type'] != '') {
     $type = get_safe_value_pta($conn, $_GET['type']);
     if ($type == 'create_timetable') {
@@ -64,7 +62,7 @@ if (isset($_GET['type']) && $_GET['type'] != '') {
             $tableName = "fifthBca";
         }
         $tableName = $tableName . $sec;
-        $sqltt = "CREATE TABLE `$tableName` (`week` VARCHAR(50) NOT NULL , `9.00-9.55` VARCHAR(100) NOT NULL , `10.00-10.55` VARCHAR(100) NOT NULL , `11.00-11.55` VARCHAR(100) NOT NULL , `12.00-12.55` VARCHAR(100) NOT NULL , `13.00-13.55` VARCHAR(100) NOT NULL, `14.00-14.55` VARCHAR(100) NOT NULL , `15.00-15.55` VARCHAR(100) NOT NULL , `16.00-16.55` VARCHAR(100) NOT NULL, PRIMARY KEY (`week`))";
+        $sqltt = "CREATE TABLE `$tableName` (`id` INT NOT NULL AUTO_INCREMENT , `week` VARCHAR(50) NOT NULL , `9.00-9.55` VARCHAR(100) NOT NULL , `10.00-10.55` VARCHAR(100) NOT NULL , `11.00-11.55` VARCHAR(100) NOT NULL , `12.00-12.55` VARCHAR(100) NOT NULL , `13.00-13.55` VARCHAR(100) NOT NULL, `14.00-14.55` VARCHAR(100) NOT NULL , `15.00-15.55` VARCHAR(100) NOT NULL , `16.00-16.55` VARCHAR(100) NOT NULL, UNIQUE KEY (`week`))";
         $restt = mysqli_query($conn, $sqltt);
         if ($restt) {
             $successInsert = true;
@@ -112,7 +110,7 @@ if ($insertSuccess) {
                                         </thead>
                                         <tbody id="inputContainer">
                                             <?php
-                                            $sqltt = "SELECT * FROM `$tableName`";
+                                            $sqltt = "SELECT * FROM `$tableName` ORDER BY `id`";
                                             $restt = mysqli_query($conn, $sqltt);
                                             if ($restt) {
                                                 while ($row = mysqli_fetch_assoc($restt)) {
@@ -137,7 +135,7 @@ if ($insertSuccess) {
                                                             <option id="Mon">Mon</option>
                                                             <option id="Tue">Tue</option>
                                                             <option id="Wed">Wed</option>
-                                                            <option id="Thur">Thur</option>
+                                                            <option id="Thur">Thu</option>
                                                             <option id="Fri">Fri</option>
                                                             <option id="Sat">Sat</option>
                                                         </select>

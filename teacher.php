@@ -13,7 +13,7 @@ if (!isset($_SESSION['teacherLoggedIn']) || $_SESSION['teacherLoggedIn'] != true
   <ul>
     <li>Profile.<a href="teacher_profile.php" class="href">Click here.</a></li>
     <li>Enter Marks.<a href="view_exam.php" class="href">Click here.</a></li>
-    <li>Enter Attendance.<a href="view_teacher_details.php" class="href">Click here.</a></li>
+    <li>Enter Attendance.<a href="view_classes.php" class="href">Click here.</a></li>
     <li>View student Details.<a href="view_student_class.php" class="href">Click here.</a></li>
     <li>Assigned Subject.<a href="view_assigned_subject.php" class="href">Click here.</a></li>
   </ul>

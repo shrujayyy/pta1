@@ -6,25 +6,60 @@ if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
     exit;
 }
 
-$today = date("Md");
+$week = date("D");
+$today = 'Oct25';
+// $today = date("Md");
 $successInsert = false;
 $alreadyExists = false;
+$tablelist = ['hii'];
 
 if (isset($_GET['type']) && $_GET['type'] != '') {
     $type = get_safe_value_pta($conn, $_GET['type']);
     if ($type == 'add_date_col') {
         $dateValue = get_safe_value_pta($conn, $_GET["date"]);
-        $sqlSub = "SELECT * FROM `bcasub`";
-        $resSub = mysqli_query($conn, $sqlSub);
-        while ($row = mysqli_fetch_assoc($resSub)) {
-            $sqlDate = "ALTER TABLE `{$row['subjectName']}` ADD `{$dateValue}` INT(1) NOT NULL DEFAULT '0'";
-            $resDate = mysqli_query($conn, $sqlDate);
-        }
-        if ($resSub) {
-            $successInsert = true;
+        $tablelist = get_safe_array_values_pta($conn, $_GET['tablename']);
+        $loopExecuted = false;
+        for ($i = 1; $i < 2; $i++) { //count($tablelist)
+            $sqlsub = "SELECT `firstBcaA`.* FROM `firstBcaA` WHERE `week` = 'Tue'";
+            $ressub = mysqli_query($conn, $sqlsub);
+            while ($rowsub = mysqli_fetch_assoc($ressub)) {
+                if ($loopExecuted) {
+                    break;
+                }
+                if ($rowsub['9.00-9.55'] != 'Free') {
+                    $subject[] = $rowsub['9.00-9.55'];
+                }
+                if ($rowsub['10.00-10.55'] != 'Free') {
+                    $subject[] = $rowsub['10.00-10.55'];
+                }
+                if ($rowsub['11.00-11.55'] != 'Free') {
+                    $subject[] = $rowsub['11.00-11.55'];
+                }
+                if ($rowsub['12.00-12.55'] != 'Free') {
+                    $subject[] = $rowsub['12.00-12.55'];
+                }
+                if ($rowsub['14.00-14.55'] != 'Free') {
+                    $subject[] = $rowsub['14.00-14.55'];
+                }
+                if ($rowsub['15.00-15.55'] != 'Free') {
+                    $subject[] = $rowsub['15.00-15.55'];
+                }
+                if ($rowsub['16.00-16.55'] != 'Free') {
+                    $subject[] = $rowsub['16.00-16.55'];
+                }
+                $loopExecuted = true;
+            }
+            for ($j = 0; $j < count($subject); $j++) {
+                $sqlDate = "ALTER TABLE `$subject[$j]` ADD `{$dateValue}` VARCHAR(10) NOT NULL DEFAULT 'Empty'";
+                $resDate = mysqli_query($conn, $sqlDate);
+            }
+            if ($resDate) {
+                $successInsert = true;
+            }
         }
     }
 }
+
 
 
 if ($successInsert) {
@@ -48,7 +83,6 @@ if ($successInsert) {
         <tbody>
             <?php
             $sqlA = "SELECT DISTINCT `bcasem`.`status`,`bcasection`.`status`, `bcasection`.`sem`, `bcasection`.`section` FROM `bcasection`,`bcasem` where `bcasection`.`sem` = `bcasem`.`sem` AND `bcasem`.`status`='1' AND `bcasection`.`status`='1' order by `sem`, `section`";
-
             $resA = mysqli_query($conn, $sqlA);
             $i = 0;
             while ($row = mysqli_fetch_assoc($resA)) {
@@ -58,8 +92,7 @@ if ($successInsert) {
                 <td scope="row">' . $row['sem'] . '</td>
                 <td scope="row">' . $row['section'] . '</td>
                 <td scope="row">
-                    <a class="btn btn-primary mr-2" href="student_subject.php?type=view_sub&sem=' . $row['sem'] . '&sec=' . $row['section'] . '">View Subject</a>'.'    ';
-                $tableName = " ";
+                    <a class="btn btn-primary mr-2" href="student_subject.php?type=view_sub&sem=' . $row['sem'] . '&sec=' . $row['section'] . '">View Subject</a>' . '    ';
                 if ($row['sem'] == 1) {
                     $tableName = "firstBca";
                 }
@@ -69,8 +102,18 @@ if ($successInsert) {
                 if ($row['sem'] == 5) {
                     $tableName = "fifthBca";
                 }
+                if ($row['sem'] == 2) {
+                    $tableName = "secondBca";
+                }
+                if ($row['sem'] == 4) {
+                    $tableName = "fourthBca";
+                }
+                if ($row['sem'] == 6) {
+                    $tableName = "sixthBca";
+                }
                 $sec = $row['section'];
                 $tableName = $tableName . $sec;
+                $tablelist[] = $tableName;
                 $sqlfind = "SHOW TABLES LIKE '$tableName'";
                 $resfind =  mysqli_query($conn, $sqlfind);
                 if ($resfind) {
@@ -80,13 +123,14 @@ if ($successInsert) {
                         echo '<a class="btn btn-primary" href="creating_timetable.php?type=create_timetable&sem=' . $row['sem'] . '&sec=' . $row['section'] . '">Create TimeTable</a>';
                     }
                 }
-                echo ' <a class="btn btn-primary" href="assign_subject_teacher.php?type=assign&sem='.$row['sem'].'&sec='.$row['section'].'">Assign Subject</a></td>
+                echo ' <a class="btn btn-primary" href="assign_subject_teacher.php?type=assign&sem=' . $row['sem'] . '&sec=' . $row['section'] . '">Assign Subject</a></td>
                 </tr>';
             }
             ?>
             <tr>
                 <td colspan="4">
                     <?php
+                    $queryString = http_build_query(array('tablename' => $tablelist));
                     $sqlSub = "SELECT * FROM `bcasub`";
                     $resSub = mysqli_query($conn, $sqlSub);
                     while ($row = mysqli_fetch_assoc($resSub)) {
@@ -100,7 +144,7 @@ if ($successInsert) {
                     ?>
                         <a class="btn btn-primary disabled" aria-disabled="true">Add Date</a>
                     <?php } else { ?>
-                        <a class="btn btn-primary" href="student_attendance.php?type=add_date_col&date=<?php echo $today; ?>">Add Date</a>
+                        <a class="btn btn-primary" href="student_attendance.php?type=add_date_col&date=<?php echo $today; ?>&table=<?php echo $queryString; ?>">Add Date</a>
                     <?php } ?>
                 </td>
             </tr>

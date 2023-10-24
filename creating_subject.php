@@ -10,6 +10,7 @@ $odd = false;
 $even = false;
 $tableInserted = false;
 $tableError = false;
+$alreadyExists = false;
 if (isset($_GET['type']) && $_GET['type'] != '') {
     $type = get_safe_value_pta($conn, $_GET['type']);
     if ($type == 'insertSuccess') {
@@ -156,6 +157,8 @@ if ($tableError) {
                 if ($resCheck) {
                     if (mysqli_num_rows($resCheck) > 0) {
                         $alreadyExists = true;
+                    } else {
+                        $alreadyExists = false;
                     }
                 }
                 if ($alreadyExists) {

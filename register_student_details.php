@@ -105,20 +105,21 @@ if ($showError) {
                                     </div>
                                     <div class="col-md-3">
                                         <label for="sem" class="form-label">Semester</label>
-                                        <select id="sem" class="form-select" name="sem" onchange="get_bca_sec('')">
+                                        <select id="sem" class="form-select" name="sem" onchange="get_bca_sec()">
                                             <option selected>Choose...</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
+                                            <?php
+                                                $sqltt = "SELECT * FROM `bcasem` WHERE `status`='1'";
+                                                $restt = mysqli_query($conn, $sqltt);
+                                                while ($rowtt = mysqli_fetch_assoc($restt)) {
+                                                    echo "<option value=" . $rowtt['sem'] . ">" . $rowtt['sem'] . "</option>";
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="section" class="form-label">Section</label>
                                         <select id="section" class="form-select" name="section">
-                                            <option>Choose...</option>
+                                            <option selected>Choose...</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
@@ -153,6 +154,10 @@ if ($showError) {
     </div>
 </div>
 
+<?php
+require('partials/_footer.php');
+?>
+
 <script>
     function get_bca_sec(sem) {
         var sem = jQuery("#sem").val();
@@ -170,6 +175,3 @@ if ($showError) {
     }
 </script>
 
-<?php
-require('partials/_footer.php');
-?>

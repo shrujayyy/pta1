@@ -6,8 +6,8 @@ if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
         <script>
             window.location.href = "login.php";
         </script>
-    <?php
-    } 
+<?php
+    }
 }
 
 if (isset($_GET['type']) && $_GET['type'] != '') {
@@ -110,27 +110,22 @@ if ($error) {
                         </div>
                         <div class="col-md-3">
                             <label for="sem" class="form-label">Semester</label>
-                            <select id="sem" class="form-select" name="sem">
+                            <select id="sem" class="form-select" name="sem" onchange="get_bca_sec('')">
                                 <option selected>Choose...</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
+                                <?php
+                                $sqltt = "SELECT * FROM `bcasem` WHERE `status`='1'";
+                                $restt = mysqli_query($conn, $sqltt);
+                                while ($rowtt = mysqli_fetch_assoc($restt)) {
+                                    echo "<option value=" . $rowtt['sem'] . ">" . $rowtt['sem'] . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label for="section" class="form-label">Section</label>
                             <select id="section" class="form-select" name="section">
                                 <option selected>Choose...</option>
-                                <option>A</option>
                             </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="text" class="form-control" id="dob" name="dob" pattern="^\d{2}-\d{2}-\d{4}$">
-                            <small class="form-text text-muted">Please enter the date DD-MM-YYYY.</small>
                         </div>
                         <div class="col-md-4">
                             <label for="email" class="form-label">Email</label>
@@ -221,13 +216,23 @@ if ($error) {
     </div>
 </div>
 
+<script>
+    function get_bca_sec(sem) {
+        var sem = jQuery("#sem").val();
+        console.log(sem);
+        jQuery.ajax({
+            url: "get_bca_sec.php",
+            type: "post",
+            data: {
+                "sem": sem
+            },
+            success: function(result) {
+                jQuery("#section").html(result);
+            },
+        });
+    }
+</script>
+
 <?php
 require('partials/_footer.php');
 ?>
-<script>
-    <?php
-    if (isset($_GET)) {
-    ?>
-        get_bca_sec('<?php echo $sub_categories_id ?>');
-    <?php } ?>
-</script>

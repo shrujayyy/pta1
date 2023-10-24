@@ -1,7 +1,7 @@
 <?php
 require('partials/connection.inc.php');
 require('partials/function.inc.php');
-
+session_start();
 if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
     header("location: login.php");
     exit;
