@@ -32,9 +32,9 @@ if (isset($_GET['type']) && $_GET['type'] != '') {
 $update = false;
 $error = false;
 if (isset($_POST['updateSubject'])) {
-    $updateSemDisplay = get_safe_value_pta($conn, $_POST["updateSemDisplay"]);
-    $subjectName = get_safe_value_pta($conn, $_POST["subjectName"]);
-    $sqlup = "UPDATE `bcasub` SET `subjectName`='$subjectName' WHERE `sem`='$updateSemDisplay'";
+    $id = get_safe_value_pta($conn, $_POST["updateID"]);
+    $subjectName = get_safe_value_pta($conn, $_POST["updateSubjectName"]);
+    $sqlup = "UPDATE `bcasub` SET `subjectName`='$subjectName' WHERE `id`='$id'";
     $result = mysqli_query($conn, $sqlup);
 }
 
@@ -68,7 +68,7 @@ if ($tableError) {
             </div>
             <div class="modal-body">
                 <div class="container mb-3">
-                    <form class="row g-3 m-2" id="updateSubject" action="creating_subject.php" method="post">
+                    <form class="row g-3 m-2" id="addSubject" action="creating_subject.php" method="post">
                         <div class="col-md-2 w-100">
                             <label for="sem" class="form-label">Semester</label>
                             <select id="sem" class="form-select" name="sem">
@@ -111,8 +111,8 @@ if ($tableError) {
                 <div class="container mb-3">
                     <form class="row g-3 m-2" id="updateSubject" action="creating_subject.php" method="post">
                         <div class="col-md-2 w-100">
-                            <label for="updateSemDisplay" class="form-label">Semester</label>
-                            <input type="text" maxlength="3" class="form-control" id="updateSemDisplay" name="updateSemDisplay" disabled>
+                            <label for="updateID" class="form-label">ID</label>
+                            <input type="text" maxlength="3" class="form-control" id="updateID" name="updateID">
                         </div>
                         <div class="col-md-2 w-100">
                             <label for="updateSubjectName" class="form-label">Subject</label>
@@ -129,7 +129,7 @@ if ($tableError) {
     </div>
 </div>
 
-<div class="container table-responsive w-50 mt-3 mb-3">
+<div class="container table-responsive w-75 mt-3 mb-3">
     <table class="table table-striped table-hover table-bordered">
         <thead class="table-dark">
             <tr>
@@ -147,7 +147,7 @@ if ($tableError) {
             while ($rowSub = mysqli_fetch_assoc($resSub)) {
                 $i = $i + 1;
                 echo '<tr>
-                <td scope="row">' . $i . '</td>
+                <td scope="row">' . $rowSub['id'] . '</td>
                 <td scope="row">' . $rowSub['sem'] . '</td>
                 <td scope="row">' . $rowSub['subjectName'] . '</td>
                 <td scope="row">

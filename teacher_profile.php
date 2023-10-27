@@ -9,6 +9,9 @@ if (!isset($_SESSION['teacherLoggedIn']) || $_SESSION['teacherLoggedIn'] != true
     exit;
 }
 
+$updateSuccess = false;
+$matchError = '';
+$currentError = '';
 $teacherID = $_SESSION['teacherID'];
 $teacherName = '';
 $firstName = '';
@@ -25,6 +28,43 @@ while ($row = mysqli_fetch_assoc($res)) {
     $email = $row['email'];
     $phoneNo = $row['phoneNo'];
 }
+if (isset($_POST['updatePassword'])) {
+    $currentPassword = get_safe_value_pta($conn, $_POST['currentPassword']);
+    $newPassword = get_safe_value_pta($conn, $_POST['newPassword']);
+    $confirmPassword = get_safe_value_pta($conn, $_POST['confirmPassword']);
+    $sqlUp = "SELECT `teacherPassword` FROM `teacherlogin` WHERE `teacherID`='$teacherID'";
+    $resUp = mysqli_query($conn, $sqlUp);
+
+    if ($resUp) {
+        while ($rowUp = mysqli_fetch_assoc($resUp)) {
+            $storedPassword = $rowUp['teacherPassword'];
+        }
+
+        if (password_verify($currentPassword, $storedPassword)) {
+            if ($newPassword === $confirmPassword) {
+                // Hash the new password before storing it
+                $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                // Update the user's password in the database
+                $updateSql = "UPDATE `teacherlogin` SET `teacherPassword` = '$hashedNewPassword' WHERE `teacherID`='$teacherID'";
+                $updateResult = mysqli_query($conn, $updateSql);
+
+                if ($updateResult) {
+                    $updateSuccess = true;
+                } else {
+                    $updateSuccess = false;
+                }
+            } else {
+                $matchError = "New password and confirm password do not match.";
+            }
+        } else {
+            $currentError = "Current password is incorrect.";
+        }
+    } else {
+        $updateSuccess = false;;
+    }
+}
+
 
 ?>
 
@@ -34,7 +74,6 @@ while ($row = mysqli_fetch_assoc($res)) {
             <div class="row">
                 <div class="col-lg-12">
                     <div class="container m-3">
-
                         <div class="card shadow m-auto">
                             <div class="card-header">
                                 <h3><strong>Your Profile</strong></h3>
@@ -65,36 +104,46 @@ while ($row = mysqli_fetch_assoc($res)) {
                                     <div class="col-12 center">
                                         <a class="btn btn-primary" href="teacher.php">Back</a>
                                     </div>
-                                    <div class="col-12">
-                                        <hr>
-                                    </div>
-                                    <div class="card-header">
-                                        <h3><small>Change Password</small></h3>
-                                    </div>
-                                    <div class="card shadow m-auto">
-                                        <div class="container mb-3">
-                                            <div class="col-md-12 mb-3 mt-2">
-                                                <label for="currentPassword" class="form-label">Current Password : </label>
-                                                <input type="password" class="form-control w-50" id="currentPassword" name="currentPassword">
-                                            </div>
-                                            <div class="col-md-12 mb-3">
-                                                <label for="password" class="form-label">Password : </label>
-                                                <input type="password" class="form-control w-50" id="password" name="password">
-                                            </div>
-                                            <div class="col-md-12 mb-3">
-                                                <label for="confirmPassword" class="form-label">Confirm Password : </label>
-                                                <input type="password" class="form-control w-50" id="phoneNo" name="confirmPassword">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </form>
+                                <div class="col-12">
+                                    <hr>
+                                </div>
                             </div>
+                        </div>
+                        <div class="card shadow m-auto">
+                            <div class="card-header">
+                                <h3><small>Change Password</small></h3>
+                            </div>
+                            <div class="container mb-3">
+                                <form class="row g-3 m-2" action="teacher_profile.php" method="post">
+                                    <div class="col-md-12 mt-2">
+                                        <label for="currentPassword" class="form-label">Current Password :
+                                        </label>
+                                        <input type="password" class="form-control w-50" id="currentPassword" name="currentPassword">
+                                        <p class="error"><?php echo $currentError; ?></p>
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <label for="newpassword" class="form-label">Password : </label>
+                                        <input type="password" class="form-control w-50" id="newPassword" name="newPassword">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="confirmPassword" class="form-label">Confirm Password :
+                                        </label>
+                                        <input type="password" class="form-control w-50" id="confirmPassword" name="confirmPassword">
+                                        <p class="error"><?php echo $matchError; ?></p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="submit" class="btn btn-primary" name="updatePassword" value="Update">
+                                    </div>
+                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <?php include("partials/_footer.php"); ?>

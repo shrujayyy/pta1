@@ -6,6 +6,18 @@ if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
     exit;
 }
 
+if (isset($_GET['type']) && $_GET['type'] != '') {
+    $type = get_safe_value_pta($conn, $_GET['type']);
+    if ($type == 'delete') {
+        $operation = get_safe_value_pta($conn, $_GET['operation']);
+        if ($operation == 'delete_teacherID') {
+            $teacherID = get_safe_value_pta($conn, $_GET['teacherID']);
+            $sqldel = "DELETE FROM `teacherlogin` WHERE `teacherID`='$teacherID'";
+            $resdel = mysqli_query($conn, $sqldel);
+        }
+    }
+}
+
 ?>
 
 <div class="container table-responsive w-50 mt-3 mb-3">
@@ -29,7 +41,7 @@ if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
                 <td scope="row">' . $i . '</td>
                 <td scope="row">' . $row['teacherID'] . '</td>
                 <td scope="row">
-                    <button type="button" class="delete_teacherID btn btn-danger" id="' . $row['teacherID'] . '">Delete</button>
+                    <a class="btn btn-danger" href="?type=delete&operation=delete_teacherID&teacherID=' . $row['teacherID'] . '">Delete</a>
                 </td>
             </tr>';
             }

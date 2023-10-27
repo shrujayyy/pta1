@@ -15,8 +15,7 @@ if (isset($_GET['type']) && $_GET['type'] != '') {
 }
 
 $teacherID = $_SESSION['teacherID'];
-// $today = date("Md");
-$today = 'Oct25';
+$today = date("Md");
 $week  = date("D");
 $columnExists = false;
 $sem = '';
@@ -97,7 +96,7 @@ $sem = '';
                                             $resfind =  mysqli_query($conn, $sqlfind);
                                             if ($resfind) {
                                                 if (mysqli_num_rows($resfind) > 0) {
-                                                    $sqlsub = "SELECT `$tableName`.* FROM `firstBcaA` WHERE `week` = 'Tue'";
+                                                    $sqlsub = "SELECT `$tableName`.* FROM `$tableName` WHERE `week` = '$week'";
                                                     $ressub = mysqli_query($conn, $sqlsub);
                                                     if ($ressub) {
                                                         $classExists = true;

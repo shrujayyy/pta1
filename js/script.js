@@ -137,9 +137,9 @@ $(document).ready(function () {
     e.preventDefault();
     
     tr = $(this).closest("tr");
-    var sem = tr.find("td:eq(1)").text();
+    var ID = tr.find("td:eq(0)").text();
     var subject = tr.find("td:eq(2)").text();
-    $("#updateSemDisplay").val(sem);
+    $("#updateID").val(ID);
     $("#updateSubjectName").val(subject);
     
     $("#updateSubModal").modal("toggle");
@@ -207,5 +207,18 @@ $(document).ready(function () {
     $("#updatedMarks").val(updatedMarks);
     
     $("#updateSecondMarksModal").modal("toggle");
+  });
+});
+
+
+$(document).ready(function () {
+  $(".update_fee").click(function (e) {
+    e.preventDefault();
+
+    var tr = $(this).closest("tr");
+    var registerNo = tr.find("td:eq(0)").text();
+
+    $("#registerNo").val(registerNo);
+    $("#feeUpdate").modal("toggle");
   });
 });

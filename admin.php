@@ -20,7 +20,7 @@ if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) { 
     <li>Creating Section.<a href="creating_section.php" class="href">Click here.</a></li>
     <li>View Student Attendance.<a href="student_attendance.php" class="href">Click here.</a></li>
     <li>View Student Marks<a href="student_marks.php" class="href">Click here.</a></li>
-    <li>View Student Fee status.<a href="student_fee_status.php" class="href">Click here.</a></li>
+    <li>View Student Fee status.<a href="student_fee.php" class="href">Click here.</a></li>
     <li>Student Login ID .<a href="student_login_id.php" class="href">Click here.</a></li>
   </ul>
 </div>

@@ -62,7 +62,7 @@ if (isset($_GET['type']) && $_GET['type'] != '') {
             $tableName = "fifthBca";
         }
         $tableName = $tableName . $sec;
-        $sqltt = "CREATE TABLE `$tableName` (`id` INT NOT NULL AUTO_INCREMENT , `week` VARCHAR(50) NOT NULL , `9.00-9.55` VARCHAR(100) NOT NULL , `10.00-10.55` VARCHAR(100) NOT NULL , `11.00-11.55` VARCHAR(100) NOT NULL , `12.00-12.55` VARCHAR(100) NOT NULL , `13.00-13.55` VARCHAR(100) NOT NULL, `14.00-14.55` VARCHAR(100) NOT NULL , `15.00-15.55` VARCHAR(100) NOT NULL , `16.00-16.55` VARCHAR(100) NOT NULL, UNIQUE KEY (`week`))";
+        $sqltt = "CREATE TABLE `$tableName` (`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, `week` VARCHAR(50) NOT NULL , `9.00-9.55` VARCHAR(100) NOT NULL , `10.00-10.55` VARCHAR(100) NOT NULL , `11.00-11.55` VARCHAR(100) NOT NULL , `12.00-12.55` VARCHAR(100) NOT NULL , `13.00-13.55` VARCHAR(100) NOT NULL, `14.00-14.55` VARCHAR(100) NOT NULL , `15.00-15.55` VARCHAR(100) NOT NULL , `16.00-16.55` VARCHAR(100) NOT NULL, UNIQUE KEY (`week`))";
         $restt = mysqli_query($conn, $sqltt);
         if ($restt) {
             $successInsert = true;
@@ -92,7 +92,9 @@ if ($insertSuccess) {
                             </div>
 
                             <div class="container table-responsive m-0 mt-2 mb-3">
-                                <form class="row g-3 m-1" id="timeTable" action="creating_timetable.php?sem=<?php echo $sem; ?>&sec=<?php echo $sec; ?>" method="post">
+                                <form class="row g-3 m-1" id="timeTable"
+                                    action="creating_timetable.php?sem=<?php echo $sem; ?>&sec=<?php echo $sec; ?>"
+                                    method="post">
 
                                     <table class="table display table-bordered" style="width:100%;" id="timeTable">
                                         <thead>
@@ -128,105 +130,106 @@ if ($insertSuccess) {
                                                 }
                                             } else {
                                             ?>
-                                                <tr>
-                                                    <td>
-                                                        <select id="week" class="form-select" name="week[]">
-                                                            <option selected>Choose...</option>
-                                                            <option id="Mon">Mon</option>
-                                                            <option id="Tue">Tue</option>
-                                                            <option id="Wed">Wed</option>
-                                                            <option id="Thur">Thu</option>
-                                                            <option id="Fri">Fri</option>
-                                                            <option id="Sat">Sat</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="9-10" class="form-select" name="9-10[]">
-                                                            <option selected>Choose...</option>
-                                                            <option>Free</option>
-                                                            <?php
+                                            <tr>
+                                                <td>
+                                                    <select id="week" class="form-select" name="week[]">
+                                                        <option selected>Choose...</option>
+                                                        <option id="Same">Same</option>
+                                                        <option id="Mon">Mon</option>
+                                                        <option id="Tue">Tue</option>
+                                                        <option id="Wed">Wed</option>
+                                                        <option id="Thur">Thu</option>
+                                                        <option id="Fri">Fri</option>
+                                                        <option id="Sat">Sat</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="9-10" class="form-select" name="9-10[]">
+                                                        <option selected>Choose...</option>
+                                                        <option>Free</option>
+                                                        <?php
                                                             $sqltt = "SELECT * FROM `bcasub` WHERE `sem`='$sem'";
                                                             $restt = mysqli_query($conn, $sqltt);
                                                             while ($rowtt = mysqli_fetch_assoc($restt)) {
                                                                 echo "<option value=" . $rowtt['subjectName'] . ">" . $rowtt['subjectName'] . "</option>";
                                                             }
                                                             ?>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="10-11" class="form-select" name="10-11[]">
-                                                            <option selected>Choose...</option>
-                                                            <option>Free</option>
-                                                            <?php
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="10-11" class="form-select" name="10-11[]">
+                                                        <option selected>Choose...</option>
+                                                        <option>Free</option>
+                                                        <?php
                                                             $sqltt = "SELECT * FROM `bcasub` WHERE `sem`='$sem'";
                                                             $restt = mysqli_query($conn, $sqltt);
                                                             while ($rowtt = mysqli_fetch_assoc($restt)) {
                                                                 echo "<option value=" . $rowtt['subjectName'] . ">" . $rowtt['subjectName'] . "</option>";
                                                             }
                                                             ?>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="11-12" class="form-select" name="11-12[]">
-                                                            <option selected>Choose...</option>
-                                                            <option>Free</option>
-                                                            <?php
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="11-12" class="form-select" name="11-12[]">
+                                                        <option selected>Choose...</option>
+                                                        <option>Free</option>
+                                                        <?php
                                                             $sqltt = "SELECT * FROM `bcasub` WHERE `sem`='$sem'";
                                                             $restt = mysqli_query($conn, $sqltt);
                                                             while ($rowtt = mysqli_fetch_assoc($restt)) {
                                                                 echo "<option value=" . $rowtt['subjectName'] . ">" . $rowtt['subjectName'] . "</option>";
                                                             }
                                                             ?>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="12-13" class="form-select" name="12-13[]">
-                                                            <option selected>Choose...</option>
-                                                            <option>Free</option>
-                                                            <?php
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="12-13" class="form-select" name="12-13[]">
+                                                        <option selected>Choose...</option>
+                                                        <option>Free</option>
+                                                        <?php
                                                             $sqltt = "SELECT * FROM `bcasub` WHERE `sem`='$sem'";
                                                             $restt = mysqli_query($conn, $sqltt);
                                                             while ($rowtt = mysqli_fetch_assoc($restt)) {
                                                                 echo "<option value=" . $rowtt['subjectName'] . ">" . $rowtt['subjectName'] . "</option>";
                                                             }
                                                             ?>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="13-14" class="form-select" name="13-14[]">
-                                                            <option selected>Lunch</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="14-15" class="form-select" name="14-15[]">
-                                                            <option selected>Choose...</option>
-                                                            <option>Free</option>
-                                                            <?php
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="13-14" class="form-select" name="13-14[]">
+                                                        <option selected>Lunch</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="14-15" class="form-select" name="14-15[]">
+                                                        <option selected>Choose...</option>
+                                                        <option>Free</option>
+                                                        <?php
                                                             $sqltt = "SELECT * FROM `bcasub` WHERE `sem`='$sem'";
                                                             $restt = mysqli_query($conn, $sqltt);
                                                             while ($rowtt = mysqli_fetch_assoc($restt)) {
                                                                 echo "<option value=" . $rowtt['subjectName'] . ">" . $rowtt['subjectName'] . "</option>";
                                                             }
                                                             ?>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="15-16" class="form-select" name="15-16[]">
-                                                            <option selected>Choose...</option>
-                                                            <option>Free</option>
-                                                            <?php
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="15-16" class="form-select" name="15-16[]">
+                                                        <option selected>Choose...</option>
+                                                        <option>Free</option>
+                                                        <?php
                                                             $sqltt = "SELECT * FROM `bcasub` WHERE `sem`='$sem'";
                                                             $restt = mysqli_query($conn, $sqltt);
                                                             while ($rowtt = mysqli_fetch_assoc($restt)) {
                                                                 echo "<option value=" . $rowtt['subjectName'] . ">" . $rowtt['subjectName'] . "</option>";
                                                             }
                                                             ?>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="16-17" class="form-select" name="16-17[]">
-                                                            <option selected>Choose...</option>
-                                                            <option>Free</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="16-17" class="form-select" name="16-17[]">
+                                                        <option selected>Choose...</option>
+                                                        <option>Free</option>
                                                         <?php
                                                         $sqltt = "SELECT * FROM `bcasub` WHERE `sem`='$sem'";
                                                         $restt = mysqli_query($conn, $sqltt);
@@ -234,15 +237,16 @@ if ($insertSuccess) {
                                                             echo "<option value=" . $rowtt['subjectName'] . ">" . $rowtt['subjectName'] . "</option>";
                                                         }
                                                     } ?>
-                                                        </select>
-                                                    </td>
-                                                </tr>
+                                                    </select>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <div class="col-md-6">
                                     </div>
                                     <div class="col-md-6 left-390">
-                                        <input type="submit" class="btn btn-primary" name="createTimeTable" value="Submit">
+                                        <input type="submit" class="btn btn-primary" name="createTimeTable"
+                                            value="Submit">
                                     </div>
                                 </form>
 
@@ -263,17 +267,18 @@ if ($insertSuccess) {
 <?php include("partials/_footer.php"); ?>
 
 <script>
-    $(document).ready(function() {
-        $("#addRow").click(function() {
-            // Create the input element
-            var input = $(`<tr>
+$(document).ready(function() {
+    $("#addRow").click(function() {
+        // Create the input element
+        var input = $(`<tr>
             <td>
                 <select id="week" class="form-select" name="week[]">
                     <option selected>Choose...</option>
+                    <option id="Same">Same</option>
                     <option id="Mon">Mon</option>
                     <option id="Tue">Tue</option>
                     <option id="Wed">Wed</option>
-                    <option id="Thur">Thur</option>
+                    <option id="Thu">Thu</option>
                     <option id="Fri">Fri</option>
                     <option id="Sat">Sat</option>
                 </select>
@@ -376,8 +381,10 @@ if ($insertSuccess) {
             </td>
     </tr>`);
 
-            // Append the input element to the container
-            $("#inputContainer").append(input);
-        });
+        // Append the input element to the container
+        $("#inputContainer").append(input);
     });
+});
+
+
 </script>

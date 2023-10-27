@@ -7,8 +7,8 @@ if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
 }
 
 $week = date("D");
-$today = 'Oct25';
 // $today = date("Md");
+$today = 'Oct23';
 $successInsert = false;
 $alreadyExists = false;
 $tablelist = ['hii'];
@@ -19,45 +19,49 @@ if (isset($_GET['type']) && $_GET['type'] != '') {
         $dateValue = get_safe_value_pta($conn, $_GET["date"]);
         $tablelist = get_safe_array_values_pta($conn, $_GET['tablename']);
         $loopExecuted = false;
-        for ($i = 1; $i < 2; $i++) { //count($tablelist)
-            $sqlsub = "SELECT `firstBcaA`.* FROM `firstBcaA` WHERE `week` = 'Tue'";
+        for ($i = 1; $i <= count($tablelist); $i++) { 
+            $subject = [];
+            $loopExecuted = false;
+            $sqlsub = "SELECT `$tablelist[$i]`.* FROM `$tablelist[$i]` WHERE `week` = '$week'";
+            // echo $sqlsub;
             $ressub = mysqli_query($conn, $sqlsub);
             while ($rowsub = mysqli_fetch_assoc($ressub)) {
                 if ($loopExecuted) {
                     break;
                 }
-                if ($rowsub['9.00-9.55'] != 'Free') {
+                if ($rowsub['9.00-9.55'] != 'Free'&& $rowsub['9.00-9.55'] != 'Same') {
                     $subject[] = $rowsub['9.00-9.55'];
                 }
-                if ($rowsub['10.00-10.55'] != 'Free') {
+                if ($rowsub['10.00-10.55'] != 'Free'&& $rowsub['10.00-10.55'] != 'Same') {
                     $subject[] = $rowsub['10.00-10.55'];
                 }
-                if ($rowsub['11.00-11.55'] != 'Free') {
+                if ($rowsub['11.00-11.55'] != 'Free'&& $rowsub['11.00-11.55'] != 'Same') {
                     $subject[] = $rowsub['11.00-11.55'];
                 }
-                if ($rowsub['12.00-12.55'] != 'Free') {
+                if ($rowsub['12.00-12.55'] != 'Free'&& $rowsub['12.00-12.55'] != 'Same') {
                     $subject[] = $rowsub['12.00-12.55'];
                 }
-                if ($rowsub['14.00-14.55'] != 'Free') {
+                if ($rowsub['14.00-14.55'] != 'Free'&& $rowsub['14.00-14.55'] != 'Same') {
                     $subject[] = $rowsub['14.00-14.55'];
                 }
-                if ($rowsub['15.00-15.55'] != 'Free') {
+                if ($rowsub['15.00-15.55'] != 'Free'&& $rowsub['15.00-15.55'] != 'Same') {
                     $subject[] = $rowsub['15.00-15.55'];
                 }
-                if ($rowsub['16.00-16.55'] != 'Free') {
+                if ($rowsub['16.00-16.55'] != 'Free'&& $rowsub['16.00-16.55'] != 'Same') {
                     $subject[] = $rowsub['16.00-16.55'];
                 }
                 $loopExecuted = true;
             }
             for ($j = 0; $j < count($subject); $j++) {
                 $sqlDate = "ALTER TABLE `$subject[$j]` ADD `{$dateValue}` VARCHAR(10) NOT NULL DEFAULT 'Empty'";
-                $resDate = mysqli_query($conn, $sqlDate);
+                echo'<br>'. $sqlDate;
+                // $resDate = mysqli_query($conn, $sqlDate);
             }
-            if ($resDate) {
-                $successInsert = true;
-            }
+            // if ($resDate) {
+            //     $successInsert = true;
+            // }
         }
-    }
+    }    
 }
 
 
@@ -95,20 +99,15 @@ if ($successInsert) {
                     <a class="btn btn-primary mr-2" href="student_subject.php?type=view_sub&sem=' . $row['sem'] . '&sec=' . $row['section'] . '">View Subject</a>' . '    ';
                 if ($row['sem'] == 1) {
                     $tableName = "firstBca";
-                }
-                if ($row['sem'] == 3) {
+                } else if ($row['sem'] == 3) {
                     $tableName = "thirdBca";
-                }
-                if ($row['sem'] == 5) {
+                } else if ($row['sem'] == 5) {
                     $tableName = "fifthBca";
-                }
-                if ($row['sem'] == 2) {
+                } else if ($row['sem'] == 2) {
                     $tableName = "secondBca";
-                }
-                if ($row['sem'] == 4) {
+                } else if ($row['sem'] == 4) {
                     $tableName = "fourthBca";
-                }
-                if ($row['sem'] == 6) {
+                } else if ($row['sem'] == 6) {
                     $tableName = "sixthBca";
                 }
                 $sec = $row['section'];

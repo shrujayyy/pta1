@@ -143,7 +143,7 @@ if ($insertSuccess) {
                               <input type="submit" class="btn btn-primary" name="assignSubject" value="Submit">
                            </div>
                         </form>
-                        <div class="col-md-6 top">
+                        <div class="col-md-6 ">
                            <button class="btn btn-primary" id="addRowTeacher">Add Row</button>
                         </div>
                      </div>
