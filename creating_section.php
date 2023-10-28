@@ -1,5 +1,5 @@
 <?php
-require('partials/_top.php');
+include('partials/top.inc.php');
 
 if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
     header("location: login.php");

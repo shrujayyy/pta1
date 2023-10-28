@@ -19,6 +19,12 @@
   justify-content: center;
 }
 
+.center_col {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .top {
   position: relative;
   top: -42px;
@@ -33,4 +39,8 @@
   margin: 0;
   color: red;
   font-weight: 600;
+}
+
+a:hover {
+  text-decoration: none;
 }

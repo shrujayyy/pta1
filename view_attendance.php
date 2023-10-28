@@ -1,5 +1,5 @@
 <?php
-include('partials/_top.php');
+require('partials/top.inc.php');
 
 if (!isset($_SESSION['adminLoggedIn']) || $_SESSION['adminLoggedIn'] != true) {
     if (!isset($_SESSION['teacherLoggedIn']) || $_SESSION['teacherLoggedIn'] != true) { ?>
