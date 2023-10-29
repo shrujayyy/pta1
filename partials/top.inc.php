@@ -80,7 +80,8 @@ session_start();
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+            <?php if (isset($_SESSION['login'])) { 
+                if (isset($_SESSION['adminLoggedIn'])) { ?> 
             <!-- Heading -->
             <div class="sidebar-heading">
                 MENU
@@ -153,6 +154,14 @@ session_start();
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+            <?php
+                } elseif (isset($_SESSION['teacherLoggedIn'])) {
+                    echo 'Teacher';
+                } elseif (isset($_SESSION['studentLoggedIn'])) {
+                    echo 'Student';
+                }
+            }
+            ?>
 
         </ul>
         <!-- End of Sidebar -->
@@ -175,7 +184,7 @@ session_start();
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow center_col">
+                        <li class="nav-item dropdown no-arrow center_col mr-3">
                             <?php if (isset($_SESSION['login'])) {
                                 if (isset($_SESSION['adminLoggedIn'])) { ?>
                                     <form action="logout.php" method="post">
