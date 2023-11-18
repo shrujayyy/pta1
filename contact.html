@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url(blur2.jpg);
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #1e558a;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      .contact-section {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-image: url(contus.jpg);
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        font-size: 24px;
+        margin-top: 20px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      ul li {
+        margin: 5px 0;
+      }
+
+      ul li a {
+        text-decoration: none;
+        color: #0078e7;
+      }
+
+      ul li a:hover {
+        text-decoration: underline;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+      }
+
+      input[type="submit"] {
+        background-color: #0078e7;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0052a6;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px 0;
+        background-color: #1e558a;
+        color: #fff;
+      }
+      @media (max-width: 768px) {
+        .contact-section {
+          padding: 10px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Contact Us</h1>
+    </header>
+
+    <div class="contact-section">
+      <h2>Social Media</h2>
+      <ul>
+        <li>
+          <a href="https://www.facebook.com/"
+            ><i class="fab fa-facebook"></i> Facebook</a
+          >
+        </li>
+        <li>
+          <a href="https://twitter.com/"
+            ><i class="fab fa-twitter"></i>Twitter</a
+          >
+        </li>
+        <li>
+          <a href="https://www.instagram.com">
+            <i class="fab fa-instagram"></i>Instagram</a
+          >
+        </li>
+      </ul>
+
+      <h2>Email</h2>
+      <p>If you have any questions or inquiries, feel free to email us:</p>
+      <p><a href="mailto:shrujay08@gmail.com">shrujay08@gmail.com</a></p>
+
+      <h2>Contact Number</h2>
+      <p>You can reach us at:</p>
+      <p><a href="phone">8951577479</a></p>
+
+      <h2>WhatsApp</h2>
+      <p>Message us on WhatsApp:</p>
+      <p>
+        <a href="https://wa.me/8951577479">8951577479</a>
+      </p>
+
+      <h2>Questions to Ask</h2>
+      <form action="submit_questions.php" method="post">
+        <label for="question">Ask your question:</label>
+        <textarea id="question" name="question" rows="4" required></textarea>
+        <br />
+        <input type="submit" value="Submit Question" />
+      </form>
+
+      <h2>Website Feedback</h2>
+      <form action="submit_feedback.php" method="post">
+        <label for="feedback">Give us your feedback:</label>
+        <textarea id="feedback" name="feedback" rows="4" required></textarea>
+        <br />
+        <input type="submit" value="Submit Feedback" />
+      </form>
+    </div>
+
+    <footer>
+      <p>&copy; 2023 Your College. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
